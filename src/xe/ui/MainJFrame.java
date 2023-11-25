@@ -1597,6 +1597,7 @@ public class MainJFrame extends javax.swing.JFrame {
         tblDanhSachXe = new javax.swing.JTable();
         jLabel41 = new javax.swing.JLabel();
         txtTim2 = new javax.swing.JTextField();
+        jPanel1 = new javax.swing.JPanel();
         JPanelHoaDon = new javax.swing.JPanel();
         HoaDonJTabbedPane = new javax.swing.JTabbedPane();
         HoaDonJPanel = new javax.swing.JPanel();
@@ -2969,6 +2970,19 @@ public class MainJFrame extends javax.swing.JFrame {
 
         JPanelCard.add(JPanelXeMay, "JPanelXeMay");
 
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 815, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 528, Short.MAX_VALUE)
+        );
+
+        JPanelCard.add(jPanel1, "card7");
+
         HoaDonJTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -3560,6 +3574,7 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane10;
     private javax.swing.JScrollPane jScrollPane2;
