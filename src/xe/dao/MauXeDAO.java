@@ -17,7 +17,7 @@ import java.sql.SQLException;
  */
 public class MauXeDAO extends XeDAO<MauXe, String> {
 
-    String INSERT_SQL = "INSERT INTO Mau_xe(MaMX, TenMX) VALUES(?,?)";
+    String INSERT_SQL = "INSERT INTO Mau_xe(TenMX) VALUES(?)";
     String UPDATE_SQL = "UPDATE Mau_Xe SET TenMX=? WHERE MaMX=?";
     String DELETE_SQL = "DELETE FROM Mau_xe WHERE MaMX=?";
     String SELECT_ALL_SQL = "SELECT * FROM Mau_xe";
@@ -27,7 +27,6 @@ public class MauXeDAO extends XeDAO<MauXe, String> {
     @Override
     public void insert(MauXe entity) {
         XJdbc.executeUpdate(INSERT_SQL,
-                entity.getMaMX(),
                 entity.getTenMX());
     }
 
@@ -64,7 +63,7 @@ public class MauXeDAO extends XeDAO<MauXe, String> {
             ResultSet rs = XJdbc.executeQuery(sql, args);
             while (rs.next()) {
                 MauXe entity = new MauXe();
-                entity.setMaMX(rs.getString("MaMX"));
+                entity.setMaMX(rs.getInt("MaMX"));
                 entity.setTenMX(rs.getString("TenMX"));
                 list.add(entity);
             }
@@ -85,7 +84,7 @@ public class MauXeDAO extends XeDAO<MauXe, String> {
             ResultSet rs = XJdbc.executeQuery(sql, args);
             while (rs.next()) {
                 MauXe entity = new MauXe();
-                entity.setMaMX(rs.getString("MaMX"));
+                entity.setMaMX(rs.getInt("MaMX"));
                 list.add(entity);
             }
             rs.getStatement().getConnection().close();

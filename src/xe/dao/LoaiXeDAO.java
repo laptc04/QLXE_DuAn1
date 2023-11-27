@@ -17,7 +17,7 @@ import xe.utils.XJdbc;
  */
 public class LoaiXeDAO extends XeDAO<LoaiXe, String> {
 
-    String INSERT_SQL = "INSERT INTO Loai_xe(MaLX, TenLX) VALUES(?,?)";
+    String INSERT_SQL = "INSERT INTO Loai_xe(TenLX) VALUES(?)";
     String UPDATE_SQL = "UPDATE Loai_xe SET TenLX=? WHERE MaLX=?";
     String DELETE_SQL = "DELETE FROM Loai_xe WHERE MaLX=?";
     String SELECT_ALL_SQL = "SELECT * FROM Loai_xe";
@@ -26,7 +26,6 @@ public class LoaiXeDAO extends XeDAO<LoaiXe, String> {
     @Override
     public void insert(LoaiXe entity) {
         XJdbc.executeUpdate(INSERT_SQL,
-                entity.getMaLX(),
                 entity.getTenLX());
     }
 
@@ -63,7 +62,7 @@ public class LoaiXeDAO extends XeDAO<LoaiXe, String> {
             ResultSet rs = XJdbc.executeQuery(sql, args);
             while (rs.next()) {
                 LoaiXe entity = new LoaiXe();
-                entity.setMaLX(rs.getString("MaLX"));
+                entity.setMaLX(rs.getInt("MaLX"));
                 entity.setTenLX(rs.getString("TenLX"));
                 list.add(entity);
             }
@@ -85,7 +84,7 @@ public class LoaiXeDAO extends XeDAO<LoaiXe, String> {
             ResultSet rs = XJdbc.executeQuery(sql, args);
             while (rs.next()) {
                 LoaiXe entity = new LoaiXe();
-                entity.setMaLX(rs.getString("MaLX"));
+                entity.setMaLX(rs.getInt("MaLX"));
 //                entity.setMaMX(rs.getString("MaMX"));
                 list.add(entity);
             }

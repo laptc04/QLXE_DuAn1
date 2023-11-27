@@ -9,14 +9,14 @@ package xe.entity;
  * @author ADMIN
  */
 public class LoaiXe {
-    private String MaLX;
+    private int MaLX;
     private String TenLX;
 
-    public String getMaLX() {
+    public int getMaLX() {
         return MaLX;
     }
 
-    public void setMaLX(String MaLX) {
+    public void setMaLX(int MaLX) {
         this.MaLX = MaLX;
     }
 

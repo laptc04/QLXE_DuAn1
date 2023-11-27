@@ -12,16 +12,16 @@ import java.util.Date;
  */
 public class DongXe {
     
-    private String MaDX;
+    private int MaDX;
     private String TenDX;
     private String TenHX;
-    private Date Baohanh;
+    private int Baohanh;
 
-    public String getMaDX() {
+    public int getMaDX() {
         return MaDX;
     }
 
-    public void setMaDX(String MaDX) {
+    public void setMaDX(int MaDX) {
         this.MaDX = MaDX;
     }
 
@@ -41,13 +41,15 @@ public class DongXe {
         this.TenHX = TenHX;
     }
 
-    public Date getBaohanh() {
+    public int getBaohanh() {
         return Baohanh;
     }
 
-    public void setBaohanh(Date Baohanh) {
+    public void setBaohanh(int Baohanh) {
         this.Baohanh = Baohanh;
     }
+
+    
     
     
 }

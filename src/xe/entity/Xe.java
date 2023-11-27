@@ -10,24 +10,22 @@ package xe.entity;
  */
 public class Xe {
 
-    private String MaXe;
+    private int MaXe;
     private String TenXe;
     private String MaLX;
     private String MaMX;
     private String MaDX;
     private String TenHX;
-    private String Sokhung;
-    private String Somay;
     private String Dungtich;
-    private String Gia;
+    private int Gia;
     private String Hinh_anh;
-    private String Soluong;
+    private int Soluong;
 
-    public String getMaXe() {
+    public int getMaXe() {
         return MaXe;
     }
 
-    public void setMaXe(String MaXe) {
+    public void setMaXe(int MaXe) {
         this.MaXe = MaXe;
     }
 
@@ -71,46 +69,6 @@ public class Xe {
         this.TenHX = TenHX;
     }
 
-    public String getHinh_anh() {
-        return Hinh_anh;
-    }
-
-    public void setHinh_anh(String Hinh_anh) {
-        this.Hinh_anh = Hinh_anh;
-    }
-
-    public String getGia() {
-        return Gia;
-    }
-
-    public void setGia(String Gia) {
-        this.Gia = Gia;
-    }
-
-    public String getSoluong() {
-        return Soluong;
-    }
-
-    public void setSoluong(String Soluong) {
-        this.Soluong = Soluong;
-    }
-
-    public String getSokhung() {
-        return Sokhung;
-    }
-
-    public void setSokhung(String Sokhung) {
-        this.Sokhung = Sokhung;
-    }
-
-    public String getSomay() {
-        return Somay;
-    }
-
-    public void setSomay(String Somay) {
-        this.Somay = Somay;
-    }
-
     public String getDungtich() {
         return Dungtich;
     }
@@ -119,6 +77,30 @@ public class Xe {
         this.Dungtich = Dungtich;
     }
 
-   
+    public int getGia() {
+        return Gia;
+    }
+
+    public void setGia(int Gia) {
+        this.Gia = Gia;
+    }
+
+    public String getHinh_anh() {
+        return Hinh_anh;
+    }
+
+    public void setHinh_anh(String Hinh_anh) {
+        this.Hinh_anh = Hinh_anh;
+    }
+
+    public int getSoluong() {
+        return Soluong;
+    }
+
+    public void setSoluong(int Soluong) {
+        this.Soluong = Soluong;
+    }
+
+    
 
 }

@@ -18,8 +18,8 @@ import xe.utils.XJdbc;
 public class HangXeDAO extends XeDAO<HangXe, String> {
 
     String INSERT_SQL = "INSERT INTO Hang_xe(TenHX) VALUES(?)";
-    String UPDATE_SQL = "UPDATE Hang_Xe SET TenHX=? WHERE TenHX=?";
-    String UPDATE_SQL_DongXe = "UPDATE Dong_Xe SET TenHX=? WHERE TenHX=?";
+//    String UPDATE_SQL = "UPDATE Hang_Xe SET TenHX=? WHERE TenHX=?";
+//    String UPDATE_SQL_DongXe = "UPDATE Dong_Xe SET TenHX=? WHERE TenHX=?";
     String DELETE_SQL = "DELETE FROM Hang_xe WHERE TenHX=?";
     String DELETE_SQL_DongXe = "DELETE FROM Dong_xe WHERE TenHX=?";
     String DELETE_SQL_Xe = "DELETE FROM Xe_may WHERE TenHX=?";
@@ -36,12 +36,12 @@ public class HangXeDAO extends XeDAO<HangXe, String> {
 
     @Override
     public void update(HangXe entity) {
-        XJdbc.executeUpdate(UPDATE_SQL_DongXe,
-                entity.getTenHX(),
-                entity.getTenHX());
-        XJdbc.executeUpdate(UPDATE_SQL,
-                entity.getTenHX(),
-                entity.getTenHX());
+//        XJdbc.executeUpdate(UPDATE_SQL_DongXe,
+//                entity.getTenHX(),
+//                entity.getTenHX());
+//        XJdbc.executeUpdate(UPDATE_SQL,
+//                entity.getTenHX(),
+//                entity.getTenHX());
 
     }
 

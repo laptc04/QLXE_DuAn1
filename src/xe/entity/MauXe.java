@@ -10,14 +10,14 @@ package xe.entity;
  */
 public class MauXe {
 
-    private String MaMX;
+    private int MaMX;
     private String TenMX;
 
-    public String getMaMX() {
+    public int getMaMX() {
         return MaMX;
     }
 
-    public void setMaMX(String MaMX) {
+    public void setMaMX(int MaMX) {
         this.MaMX = MaMX;
     }
 

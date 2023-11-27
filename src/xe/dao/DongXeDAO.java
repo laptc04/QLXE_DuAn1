@@ -18,11 +18,11 @@ import xe.utils.XJdbc;
  */
 public class DongXeDAO extends XeDAO<DongXe, String> {
 
-    String INSERT_SQL = "INSERT INTO Dong_xe(MaDX, TenDX, TenHX, Baohanh) VALUES(?,?,?,?)";
+    String INSERT_SQL = "INSERT INTO Dong_xe(TenDX, TenHX, Baohanh) VALUES(?,?,?)";
     String UPDATE_SQL = "UPDATE Dong_Xe SET TenDX=? ,TenHX=?, Baohanh=? WHERE MaDX=?";
     String DELETE_SQL = "DELETE FROM Dong_xe WHERE MaDX=?";
     String DELETE_SQL_Xe = "DELETE FROM Xe_may WHERE MaDX=?";
-    String SELECT_ALL_SQL = "SELECT * FROM Dong_xe order by TenDX,TenHX";
+    String SELECT_ALL_SQL = "SELECT * FROM Dong_xe order by MaDX,TenDX,TenHX";
     String SELECT_BY_ID_SQL = "SELECT * FROM Dong_Xe WHERE MaDX=?";
     String SELECT_BY_IDHX = "SELECT * FROM Dong_Xe WHERE TenHX=?";
     String SELECT_BY_DX = "SELECT TenDX FROM Dong_Xe WHERE TenHX=?";
@@ -30,7 +30,6 @@ public class DongXeDAO extends XeDAO<DongXe, String> {
     @Override
     public void insert(DongXe entity) {
         XJdbc.executeUpdate(INSERT_SQL,
-                entity.getMaDX(),
                 entity.getTenDX(),
                 entity.getTenHX(),
                 entity.getBaohanh());
@@ -99,10 +98,10 @@ public class DongXeDAO extends XeDAO<DongXe, String> {
             ResultSet rs = XJdbc.executeQuery(sql, args);
             while (rs.next()) {
                 DongXe entity = new DongXe();
-                entity.setMaDX(rs.getString("MaDX"));
+                entity.setMaDX(rs.getInt("MaDX"));
                 entity.setTenDX(rs.getString("TenDX"));
                 entity.setTenHX(rs.getString("TenHX"));
-                entity.setBaohanh(rs.getDate("Baohanh"));
+                entity.setBaohanh(rs.getInt("Baohanh"));
                 list.add(entity);
             }
             rs.getStatement().getConnection().close();
@@ -123,7 +122,7 @@ public class DongXeDAO extends XeDAO<DongXe, String> {
             ResultSet rs = XJdbc.executeQuery(sql, args);
             while (rs.next()) {
                 DongXe entity = new DongXe();
-                entity.setMaDX(rs.getString("MaDX"));
+                entity.setMaDX(rs.getInt("MaDX"));
 //                entity.setMaLX(rs.getString("MaLX"));
 //                entity.setMaMX(rs.getString("MaMX"));
                 list.add(entity);
