@@ -9,8 +9,11 @@ package xe.entity;
  * @author ADMIN
  */
 public class SoKhungSoMay {
+
     private int MaSKSM;
     private int MaXe;
+    private String TenHX;
+    private int MaDX;
     private String Sokhung;
     private String Somay;
 
@@ -45,6 +48,21 @@ public class SoKhungSoMay {
     public void setSomay(String Somay) {
         this.Somay = Somay;
     }
-    
-    
+
+    public String getTenHX() {
+        return TenHX;
+    }
+
+    public void setTenHX(String TenHX) {
+        this.TenHX = TenHX;
+    }
+
+    public int getMaDX() {
+        return MaDX;
+    }
+
+    public void setMaDX(int MaDX) {
+        this.MaDX = MaDX;
+    }
+
 }

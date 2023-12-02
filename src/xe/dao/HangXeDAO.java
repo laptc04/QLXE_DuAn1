@@ -20,6 +20,7 @@ public class HangXeDAO extends XeDAO<HangXe, String> {
     String INSERT_SQL = "INSERT INTO Hang_xe(TenHX) VALUES(?)";
 //    String UPDATE_SQL = "UPDATE Hang_Xe SET TenHX=? WHERE TenHX=?";
 //    String UPDATE_SQL_DongXe = "UPDATE Dong_Xe SET TenHX=? WHERE TenHX=?";
+    String DELETE_SQL_SKSM = "DELETE FROM Sokhung_Somay WHERE TenHX=?";
     String DELETE_SQL = "DELETE FROM Hang_xe WHERE TenHX=?";
     String DELETE_SQL_DongXe = "DELETE FROM Dong_xe WHERE TenHX=?";
     String DELETE_SQL_Xe = "DELETE FROM Xe_may WHERE TenHX=?";
@@ -50,7 +51,11 @@ public class HangXeDAO extends XeDAO<HangXe, String> {
         XJdbc.executeUpdate(DELETE_SQL_DongXe, id);
         XJdbc.executeUpdate(DELETE_SQL, id);
     }
+    public void deleteTH(String id) {
+        XJdbc.executeUpdate(DELETE_SQL, id);
+    }
     public void deleteAll(String id) {
+        XJdbc.executeUpdate(DELETE_SQL_SKSM, id);
         XJdbc.executeUpdate(DELETE_SQL_Xe, id);
         XJdbc.executeUpdate(DELETE_SQL_DongXe, id);
         XJdbc.executeUpdate(DELETE_SQL, id);

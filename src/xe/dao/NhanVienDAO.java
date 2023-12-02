@@ -19,7 +19,7 @@ import xe.utils.XJdbc;
 public class NhanVienDAO extends XeDAO<NhanVien, String> {
 
     String INSERT_SQL = "INSERT INTO Nhan_Vien(MaNV, TenNV, Matkhau,Sodienthoai,Diachi,Hinh_anh,Vaitro) VALUES(?,?,?,?,?,?,?)";
-    String UPDATE_SQL = "UPDATE Nhan_Vien SET TenNV=?, Matkhau=?, Sodienthoai = ?,Diachi = ?, Hinh_anh = ?,Vaitro=? WHERE MaNV=?";
+    String UPDATE_SQL = "UPDATE Nhan_Vien SET TenNV=?, Sodienthoai = ?,Diachi = ?, Hinh_anh = ?,Vaitro=? WHERE MaNV=?";
     String DELETE_SQL = "DELETE FROM Nhan_Vien WHERE MaNV=?";
     String SELECT_ALL_SQL = "SELECT * FROM Nhan_Vien order by Vaitro";
     String SELECT_BY_ID_SQL = "SELECT * FROM Nhan_Vien WHERE MaNV=?";
@@ -40,7 +40,6 @@ public class NhanVienDAO extends XeDAO<NhanVien, String> {
     public void update(NhanVien entity) {
         XJdbc.executeUpdate(UPDATE_SQL,
                 entity.getTenNV(),
-                entity.getMatKhau(),
                 entity.getSDT(),
                 entity.getDiaChi(),
                 entity.getHinhAnh(),

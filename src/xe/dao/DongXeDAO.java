@@ -20,8 +20,11 @@ public class DongXeDAO extends XeDAO<DongXe, String> {
 
     String INSERT_SQL = "INSERT INTO Dong_xe(TenDX, TenHX, Baohanh) VALUES(?,?,?)";
     String UPDATE_SQL = "UPDATE Dong_Xe SET TenDX=? ,TenHX=?, Baohanh=? WHERE MaDX=?";
+    String UPDATE_SQL_TenHX = "update Xe_may set TenHX=? where MaDX=?";
+    String UPDATE_SQL_TenHX_SKSM = "update Sokhung_Somay set TenHX=? where MaDX=?";
     String DELETE_SQL = "DELETE FROM Dong_xe WHERE MaDX=?";
     String DELETE_SQL_Xe = "DELETE FROM Xe_may WHERE MaDX=?";
+    String DELETE_SQL_SKSMXe = "DELETE FROM Sokhung_Somay WHERE MaDX=?";
     String SELECT_ALL_SQL = "SELECT * FROM Dong_xe order by MaDX,TenDX,TenHX";
     String SELECT_BY_ID_SQL = "SELECT * FROM Dong_Xe WHERE MaDX=?";
     String SELECT_BY_IDHX = "SELECT * FROM Dong_Xe WHERE TenHX=?";
@@ -42,10 +45,17 @@ public class DongXeDAO extends XeDAO<DongXe, String> {
                 entity.getTenHX(),
                 entity.getBaohanh(),
                 entity.getMaDX());
+        XJdbc.executeUpdate(UPDATE_SQL_TenHX,
+                entity.getTenHX(),
+                entity.getMaDX());
+        XJdbc.executeUpdate(UPDATE_SQL_TenHX_SKSM,
+                entity.getTenHX(),
+                entity.getMaDX());
     }
 
     @Override
     public void delete(String id) {
+        XJdbc.executeUpdate(DELETE_SQL_SKSMXe, id);
         XJdbc.executeUpdate(DELETE_SQL_Xe, id);
         XJdbc.executeUpdate(DELETE_SQL, id);
     }

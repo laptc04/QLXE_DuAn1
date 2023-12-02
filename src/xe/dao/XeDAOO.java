@@ -22,15 +22,14 @@ public class XeDAOO extends XeDAO<Xe, String> {
     String INSERT_SQL = "INSERT INTO Xe_may(TenXe,TenHX,MaDX,MaLX,MaMX,Dungtich,Gia,Hinh_anh,Soluong) VALUES(?,?,?,?,?,?,?,?,?)";
     String UPDATE_SQL = "UPDATE Xe_may SET TenXe=?,TenHX=?,MaDX=?, MaLX=?,MaMX=?,Dungtich=?,Gia=?,Hinh_anh=?,soluong=? WHERE MaXe=?";
     String DELETE_SQL = "DELETE FROM Xe_may WHERE MaXe=?";
+    String DELETE_SQL_SKSMXe = "DELETE FROM Sokhung_Somay WHERE MaXe=?";
     String SELECT_ALL_XE = "select * from Xe_may";
     String SELECT_ALL_SQL = "select MaXe,TenXe,Dong_xe.TenHX,Dong_xe.TenDX,Loai_xe.TenLX,Mau_xe.TenMX,Dungtich,Gia,Hinh_anh,Soluong from Xe_may join Loai_xe on Xe_may.MaLX=Loai_xe.MaLX\n"
             + "join Mau_xe on Mau_xe.MaMX=Xe_may.MaMX\n"
-            + "join Dong_xe on Dong_xe.MaDX=Xe_may.MaDX\n"
-            + "join Hang_xe on Hang_xe.TenHX=Xe_may.TenHX order by Maxe,Hang_xe.TenHX";
+            + "join Dong_xe on Dong_xe.MaDX=Xe_may.MaDX order by Maxe,TenHX";
     String SELECT_BY_ID_SQL = "select MaXe,TenXe,Dong_xe.TenHX,Dong_xe.TenDX,Loai_xe.TenLX,Mau_xe.TenMX,Dungtich,Gia,Hinh_anh,Soluong from Xe_may join Loai_xe on Xe_may.MaLX=Loai_xe.MaLX\n"
             + "join Mau_xe on Mau_xe.MaMX=Xe_may.MaMX\n"
-            + "join Dong_xe on Dong_xe.MaDX=Xe_may.MaDX\n"
-            + "join Hang_xe on Hang_xe.TenHX=Xe_may.TenHX where MaXe =?";
+            + "join Dong_xe on Dong_xe.MaDX=Xe_may.MaDX where MaXe =?";
 
     @Override
     public void insert(Xe entity) {
@@ -63,7 +62,10 @@ public class XeDAOO extends XeDAO<Xe, String> {
 
     @Override
     public void delete(String id) {
-        XJdbc.executeUpdate(DELETE_SQL, id);
+        //xóa xe sẽ xóa luôn sksm
+        //xóa theo mã xe
+        XJdbc.executeUpdate(DELETE_SQL_SKSMXe, id);//xóa khóa ngoại 
+        XJdbc.executeUpdate(DELETE_SQL, id);//xong xóa khóa chính
     }
 
     @Override

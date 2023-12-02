@@ -17,8 +17,8 @@ import xe.utils.XJdbc;
  */
 public class SoKhungSoMayDAO extends XeDAO<SoKhungSoMay, String> {
 
-    String INSERT_SQL = "INSERT INTO Sokhung_Somay(MaXe,Sokhung,Somay) VALUES(?,?,?)";
-    String UPDATE_SQL = "UPDATE Sokhung_Somay SET MaXe=?,Sokhung=?,Somay=? WHERE MaSKSM=?";
+    String INSERT_SQL = "INSERT INTO Sokhung_Somay(MaXe,TenHX,MaDX,Sokhung,Somay) VALUES(?,?,?,?,?)";
+    String UPDATE_SQL = "UPDATE Sokhung_Somay SET MaXe=?,TenHX=?,MaDX=?,Sokhung=?,Somay=? WHERE MaSKSM=?";
     String DELETE_SQL = "DELETE FROM Sokhung_Somay WHERE MaSKSM=?";
     String SELECT_ALL_SQL = "SELECT * FROM Sokhung_Somay";
     String SELECT_BY_ID_SQL = "SELECT * FROM Sokhung_Somay WHERE MaSKSM=?";
@@ -28,6 +28,8 @@ public class SoKhungSoMayDAO extends XeDAO<SoKhungSoMay, String> {
     public void insert(SoKhungSoMay entity) {
         XJdbc.executeUpdate(INSERT_SQL,
                 entity.getMaXe(),
+                entity.getTenHX(),
+                entity.getMaDX(),
                 entity.getSokhung(),
                 entity.getSomay()
         );
@@ -37,6 +39,8 @@ public class SoKhungSoMayDAO extends XeDAO<SoKhungSoMay, String> {
     public void update(SoKhungSoMay entity) {
         XJdbc.executeUpdate(UPDATE_SQL,
                 entity.getMaXe(),
+                entity.getTenHX(),
+                entity.getMaDX(),
                 entity.getSokhung(),
                 entity.getSomay(),
                 entity.getMaSKSM());
@@ -55,6 +59,7 @@ public class SoKhungSoMayDAO extends XeDAO<SoKhungSoMay, String> {
         }
         return list.get(0);
     }
+
     public SoKhungSoMay selectBySKSM(String id) {
         List<SoKhungSoMay> list = this.selectBySQL(SELECT_BY_ID_SKSM, id);
         if (list.isEmpty()) {
@@ -77,6 +82,8 @@ public class SoKhungSoMayDAO extends XeDAO<SoKhungSoMay, String> {
                 SoKhungSoMay entity = new SoKhungSoMay();
                 entity.setMaSKSM(rs.getInt("MaSKSM"));
                 entity.setMaXe(rs.getInt("MaXe"));
+                entity.setTenHX(rs.getString("TenHX"));
+                entity.setMaDX(rs.getInt("MaDX"));
                 entity.setSokhung(rs.getString("Sokhung"));
                 entity.setSomay(rs.getString("Somay"));
                 list.add(entity);
