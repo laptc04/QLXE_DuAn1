@@ -25,7 +25,7 @@ public class DongXeDAO extends XeDAO<DongXe, String> {
     String DELETE_SQL = "DELETE FROM Dong_xe WHERE MaDX=?";
     String DELETE_SQL_Xe = "DELETE FROM Xe_may WHERE MaDX=?";
     String DELETE_SQL_SKSMXe = "DELETE FROM Sokhung_Somay WHERE MaDX=?";
-    String SELECT_ALL_SQL = "SELECT * FROM Dong_xe order by MaDX,TenDX,TenHX";
+    String SELECT_ALL_SQL = "SELECT * FROM Dong_xe order by TenHX,TenDX";
     String SELECT_BY_ID_SQL = "SELECT * FROM Dong_Xe WHERE MaDX=?";
     String SELECT_BY_IDHX = "SELECT * FROM Dong_Xe WHERE TenHX=?";
     String SELECT_BY_DX = "SELECT TenDX FROM Dong_Xe WHERE TenHX=?";
