@@ -4,10 +4,10 @@
  */
 package xe.dao;
 
+import java.sql.SQLException;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
-import xe.entity.KhachHang;
 import xe.entity.SoKhungSoMay;
 import xe.utils.XJdbc;
 
@@ -94,5 +94,25 @@ public class SoKhungSoMayDAO extends XeDAO<SoKhungSoMay, String> {
             throw new RuntimeException(e);
         }
     }
+    
+    public List<SoKhungSoMay> selectBysm(String TenSK) {
+        String SQL = "SELECT Somay FROM Sokhung_Somay WHERE Sokhung= ?";
+        return this.selectBysk(SQL, TenSK);
+    }
 
+    protected List<SoKhungSoMay> selectBysk(String sql, Object... args) {
+        List<SoKhungSoMay> list = new ArrayList<>();
+        try {
+            ResultSet rs = XJdbc.executeQuery(sql, args);
+            while (rs.next()) {
+                SoKhungSoMay entity = new SoKhungSoMay();
+                entity.setSomay(rs.getString("Somay"));
+                list.add(entity);
+            }
+            rs.getStatement().getConnection().close();
+            return list;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
