@@ -24,6 +24,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import xe.dao.DongXeDAO;
 import xe.dao.HangXeDAO;
+import xe.dao.HoaDonCTDAO;
 import xe.dao.HoaDonDAO;
 import xe.dao.KhachHangDAO;
 import xe.dao.LoaiXeDAO;
@@ -34,6 +35,7 @@ import xe.dao.XeDAOO;
 import xe.entity.DongXe;
 import xe.entity.HangXe;
 import xe.entity.HoaDon;
+import xe.entity.HoaDonCT;
 import xe.entity.KhachHang;
 import xe.entity.LoaiXe;
 import xe.entity.MauXe;
@@ -56,6 +58,7 @@ import xe.utils.XImage;
 public class MainJFrame extends javax.swing.JFrame {
 
     SoKhungSoMayDAO daosksm = new SoKhungSoMayDAO();
+    HoaDonCTDAO daohdct = new HoaDonCTDAO();
     HoaDonDAO daohd = new HoaDonDAO();
     XeDAOO daoxe = new XeDAOO();
     DongXeDAO daodx = new DongXeDAO();
@@ -106,6 +109,7 @@ public class MainJFrame extends javax.swing.JFrame {
         this.fillTableHD();
         this.updateStatusKh();
         this.fillTableSP();
+        this.fillTableHDCT();
     }
 
     void startClock() {
@@ -2010,6 +2014,78 @@ public class MainJFrame extends javax.swing.JFrame {
     //-----------------------------------------------------------------------KH
 
     //----------------------------------------------------form hóa đơn chi tiết--------------------------------------
+    void fillTableHDCT() {
+        DefaultTableModel model = (DefaultTableModel) tblHoaDonCT.getModel();
+        model.setRowCount(0);
+        try {
+            List<HoaDonCT> list = daohdct.selectAll();
+            int i = 1;
+            for (HoaDonCT hd : list) {
+                Object[] row = {i++, hd.getHoaDonCT(), hd.getMaHD(),hd.getMaXe(),hd.getTenXe(),hd.getTenHang(),hd.getTenDX(),hd.getTenLX(),
+                hd.getTenMX(),hd.getDungtich(),hd.getSokhung(),hd.getSomay(),hd.getSoluong(),hd.getGia(),hd.getThanhtien()};
+                model.addRow(row);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    //set form hdct
+    void setFormHDCT(HoaDonCT hd) {
+        lblMaHDCT.setText(hd.getHoaDonCT()+"");
+        lblMaHD1.setText(hd.getMaHD()+"");
+        lblMaXe1.setText(hd.getMaXe()+"");
+        lblTenXe1.setText(hd.getTenXe());
+        lblTenHang1.setText(hd.getTenHang());
+        lblTenDong1.setText(hd.getTenDX());
+        lblTenLoai1.setText(hd.getTenLX());
+        lblTenMau1.setText(hd.getTenMX());
+        lblDungTich1.setText(hd.getDungtich());
+        
+    }
+    //get form insert
+    private HoaDonCT getFormHDCT() {
+        HoaDonCT hd = new HoaDonCT();
+        //khóa chính tự sinh nên k cần phải thêm;
+        hd.setMaHD(Integer.parseInt(lblMaHD1.getText()));
+        hd.setMaXe(Integer.parseInt(lblMaXe1.getText()));
+        hd.setTenXe(lblTenXe1.getText());
+        hd.setTenHang(lblTenHang1.getText());
+        hd.setTenDX(lblTenDong1.getText());
+        hd.setTenLX(lblTenLoai1.getText());
+        hd.setTenMX(lblTenMau1.getText());
+        hd.setDungtich(lblDungTich1.getText());
+        String sokhung = (String) cbosksm.getSelectedItem();
+        hd.setSokhung(sokhung);
+        hd.setSomay(lblSoMay1.getText());
+        hd.setSoluong(Integer.parseInt(lblSoLuong1.getText()));
+        hd.setGia(Integer.parseInt(lblGia1.getText()));
+        hd.setThanhtien(Integer.parseInt(lblThanhTien.getText()));
+        return hd;
+    }
+
+    void insertHDCT() {
+        HoaDonCT hd = getFormHDCT();
+        if (lblMaHDCT.getText().isBlank()) {
+            try {
+                daohdct.insert(hd);
+                this.fillTableHDCT();
+                this.clearFormHD();
+                MsgBox.alert(this, "Lưu thành công!");
+            } catch (Exception e) {
+                MsgBox.alert(this, "Lưu thất bại!");
+            }
+        } else {
+            //this.updateHDUP();
+        }
+    }
+
+//    void editHDCT() {
+//        Integer mahdct = (Integer) tblHoaDonCT.getValueAt(this.row, 1);
+//        HoaDonCT hd = daohdct.selectById(mahdct + "");
+//        //btnXoaHD.setEnabled(true);
+//        this.setFormHDCT(hd);
+//    }
     //------------------------filltable sản phẩm-----------------------------
     void fillTableSP() {
         DefaultTableModel model = (DefaultTableModel) tblSanPham.getModel();
@@ -2044,6 +2120,7 @@ public class MainJFrame extends javax.swing.JFrame {
         }
     }
 
+    //click tblsp  sét lên from
     void setFormSP(Xe x) {
         lblMaXe1.setText(x.getMaXe() + "");
         lblTenXe1.setText(x.getTenXe());
@@ -4148,11 +4225,11 @@ public class MainJFrame extends javax.swing.JFrame {
 
             },
             new String [] {
-                "STT", "Mã HĐCT", "Mã HĐ", "Xe", "Hãng", "Dòng", "Loại", "Màu", "Dung tích xilanh", "Số khung", "Số máy", "SL", "Giá", "Thành tiền"
+                "STT", "Mã HĐCT", "Mã HĐ", "Mã xe", "Xe", "Hãng", "Dòng", "Loại", "Màu", "Dung tích xilanh", "Số khung", "Số máy", "SL", "Giá", "Thành tiền"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -4161,6 +4238,11 @@ public class MainJFrame extends javax.swing.JFrame {
         });
         tblHoaDonCT.setFocusable(false);
         tblHoaDonCT.setShowGrid(false);
+        tblHoaDonCT.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblHoaDonCTMouseClicked(evt);
+            }
+        });
         jScrollPane14.setViewportView(tblHoaDonCT);
 
         jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -4233,6 +4315,11 @@ public class MainJFrame extends javax.swing.JFrame {
         jPanel4.add(lblThanhTien, new org.netbeans.lib.awtextra.AbsoluteConstraints(76, 390, 170, 18));
 
         jButton3.setText("Lưu");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
         jPanel4.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 421, -1, -1));
 
         jButton5.setText("Reset");
@@ -4963,12 +5050,26 @@ public class MainJFrame extends javax.swing.JFrame {
             List<SoKhungSoMay> sksm1 = daosksm.selectBysm(sksm);
             for (SoKhungSoMay m : sksm1) {
                 lblSoMay1.setText(m.getSomay() + "");
-                System.out.println(m.getSomay());
             }
-        }else{
+        } else {
             return;
         }
     }//GEN-LAST:event_cbosksmActionPerformed
+
+    private void tblHoaDonCTMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHoaDonCTMouseClicked
+        // TODO add your handling code here:
+        if (evt.getClickCount() == 1) {
+            this.row = tblHoaDonCT.getSelectedRow();
+            if (this.row >= 0) {
+                this.editSP();
+            }
+        }
+    }//GEN-LAST:event_tblHoaDonCTMouseClicked
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        this.insertHDCT();
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
