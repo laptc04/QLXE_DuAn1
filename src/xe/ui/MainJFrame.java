@@ -284,6 +284,7 @@ public class MainJFrame extends javax.swing.JFrame {
         List<NhanVien> list = dao.selectAll();
         NhanVien nv = getFormNhanVien();
         String manv = txtMaNV.getText();
+        String sdt = txtSodienthoai.getText();
         String mk2 = new String(txtMatKhau2.getPassword());
         if (txtMaNV.getText().isBlank() || txtMatKhau.getText().isBlank() || txtMatKhau2.getText().isBlank() || txtTenNV.getText().isBlank() || btnGChucVu.isSelected(null)
                 || txtSodienthoai.getText().isBlank()) {
@@ -302,6 +303,9 @@ public class MainJFrame extends javax.swing.JFrame {
                     for (NhanVien nv1 : list) {
                         if (nv1.getMaNV().equalsIgnoreCase(txtMaNV.getText())) {
                             MsgBox.alert(this, "Mã " + txtMaNV.getText() + " đã tồn tại!");
+                            return;
+                        }else if(nv1.getSDT().equalsIgnoreCase(sdt)){
+                            MsgBox.alert(this, "Số điện thoại đã tồn tại");
                             return;
                         }
                     }
@@ -436,6 +440,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
         List<KhachHang> list = daokh.selectAll();
         KhachHang kh = getFormKhachHang();
+        String sdt = txtSodienthoaiKH.getText();
         if (txtMaKH.getText().isBlank() || txtTenKH.getText().isBlank() || txtSodienthoaiKH.getText().isBlank() || lblNgayTao.getText().isBlank()) {
             MsgBox.alert(this, "Vui lòng nhập đủ thông tin!");
             return;
@@ -446,6 +451,9 @@ public class MainJFrame extends javax.swing.JFrame {
             for (KhachHang kh1 : list) {
                 if (kh1.getMaKH().equalsIgnoreCase(txtMaKH.getText())) {
                     MsgBox.alert(this, "Mã " + txtMaKH.getText() + " đã tồn tại!");
+                    return;
+                }else if(kh1.getSodienthoai().equalsIgnoreCase(sdt)){
+                    MsgBox.alert(this, "Số điện thoại đã tồn tại");
                     return;
                 }
             }
