@@ -68,6 +68,7 @@ public class MainJFrame extends javax.swing.JFrame {
     NhanVienDAO dao = new NhanVienDAO();
     LoaiXeDAO daolx = new LoaiXeDAO();
     int row = -1;
+    int sl = -1;
     CardLayout card;
     JFileChooser fileChooser = new JFileChooser();
 
@@ -304,7 +305,7 @@ public class MainJFrame extends javax.swing.JFrame {
                         if (nv1.getMaNV().equalsIgnoreCase(txtMaNV.getText())) {
                             MsgBox.alert(this, "Mã " + txtMaNV.getText() + " đã tồn tại!");
                             return;
-                        }else if(nv1.getSDT().equalsIgnoreCase(sdt)){
+                        } else if (nv1.getSDT().equalsIgnoreCase(sdt)) {
                             MsgBox.alert(this, "Số điện thoại đã tồn tại");
                             return;
                         }
@@ -452,7 +453,7 @@ public class MainJFrame extends javax.swing.JFrame {
                 if (kh1.getMaKH().equalsIgnoreCase(txtMaKH.getText())) {
                     MsgBox.alert(this, "Mã " + txtMaKH.getText() + " đã tồn tại!");
                     return;
-                }else if(kh1.getSodienthoai().equalsIgnoreCase(sdt)){
+                } else if (kh1.getSodienthoai().equalsIgnoreCase(sdt)) {
                     MsgBox.alert(this, "Số điện thoại đã tồn tại");
                     return;
                 }
@@ -1879,6 +1880,20 @@ public class MainJFrame extends javax.swing.JFrame {
         hd.setTongTien(Integer.parseInt(lblTongTien.getText()));
         return hd;
     }
+    
+    //get form để update sl
+    private Xe getFormUPSL() {
+        int sl=-1;
+        Xe x = new Xe();
+//        x.
+        //khóa chính tự sinh nên k cần phải thêm;
+        //x.setSoluong();j
+        if(!lblMaXe1.getText().isBlank()){
+            x.setMaXe(Integer.parseInt(lblMaXe1.getText()));
+        }
+        
+        return x;
+    }
 
     //get form để update
     private HoaDon getFormHDUP() {
@@ -1920,6 +1935,9 @@ public class MainJFrame extends javax.swing.JFrame {
         rdoDaThanhToan.setEnabled(false);
         lblMaHD1.setText("");
         lblTextThanhToanHD.setText("");
+        this.fillTableHD();
+        this.fillTableKH();
+        this.fillTableHDCT();
     }
 
     void insertHD() {
@@ -2023,6 +2041,7 @@ public class MainJFrame extends javax.swing.JFrame {
     void fillTableHDCT() {
         DefaultTableModel model = (DefaultTableModel) tblHoaDonCT.getModel();
         model.setRowCount(0);
+        int tt = 0;
         try {
             List<HoaDonCT> list = daohdct.selectAll();
             int i = 1;
@@ -2031,8 +2050,15 @@ public class MainJFrame extends javax.swing.JFrame {
                     Object[] row = {i++, hd.getHoaDonCT(), hd.getMaHD(), hd.getMaXe(), hd.getTenXe(), hd.getTenHang(), hd.getTenDX(), hd.getTenLX(),
                         hd.getTenMX(), hd.getDungtich(), hd.getSokhung(), hd.getSomay(), hd.getSoluong(), hd.getGia(), hd.getThanhtien()};
                     model.addRow(row);
+                    tt += hd.getThanhtien();
                 }
             }
+            HoaDon hd = new HoaDon();
+            if(!lblMaHD.getText().isBlank()){
+                hd.setMaHD(Integer.parseInt(lblMaHD.getText()));
+            }
+            hd.setTongTien(tt);
+            daohd.updateTT(hd);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -2093,6 +2119,7 @@ public class MainJFrame extends javax.swing.JFrame {
                 daohdct.insert(hd);
                 this.fillTableHDCT();
                 this.fillComboBoxSKSM();
+                this.fillTableHD();
                 //MsgBox.alert(this, "Lưu thành công!");
             } catch (Exception e) {
                 MsgBox.alert(this, "Lưu thất bại!");
@@ -2111,6 +2138,7 @@ public class MainJFrame extends javax.swing.JFrame {
             try {
                 daohdct.delete(hd);
                 this.fillTableHDCT();
+                this.fillTableHD();
                 lblMaHDCT.setText("");
                 //MsgBox.alert(this, "Đã xóa");
             } catch (Exception e) {
@@ -2149,11 +2177,13 @@ public class MainJFrame extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) tblSanPham.getModel();
         model.setRowCount(0);
         int i = 1;
+        int sl=-1;
         try {
             List<Xe> list = daoxe.selectAll();
             for (Xe x : list) {
                 Object[] row = {i++, x.getMaXe(), x.getTenXe(), x.getTenHX(), x.getMaDX(), x.getMaLX(), x.getMaMX(), x.getDungtich(), x.getSoluong(), x.getGia()};
                 model.addRow(row);
+                sl+=x.getSoluong();
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -5305,9 +5335,7 @@ public class MainJFrame extends javax.swing.JFrame {
     private void btnResSetHDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResSetHDActionPerformed
         // TODO add your handling code here:
         this.clearFormHD();
-        this.fillTableHD();
-        this.fillTableKH();
-        this.fillTableHDCT();
+
     }//GEN-LAST:event_btnResSetHDActionPerformed
 
     private void btnLuuHDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuHDActionPerformed

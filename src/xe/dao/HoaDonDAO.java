@@ -19,6 +19,8 @@ public class HoaDonDAO extends XeDAO<HoaDon, String> {
 
     String INSERT_SQL = "INSERT INTO Hoa_don(MaKH, TenKH, MaNV,TenNV,Trangthai,Ngaytao,Tongtien) VALUES(?,?,?,?,?,?,?)";
     String UPDATE_SQL = "UPDATE Hoa_don SET MaKH=?, TenKH=?, MaNV = ?, TenNV=? ,Trangthai=?, Ngaytao = ?,Tongtien=? WHERE MaHD=?";
+    String UPDATE_SQL_TT = "UPDATE Hoa_don SET Tongtien=? WHERE MaHD=?";
+    String UPDATE_SQL_SL = "UPDATE Hoa_don SET Soluong=? WHERE MaHD=?";
     String DELETE_SQL = "DELETE FROM Hoa_don WHERE MaHD=?";
     String DELETE_SQL_HDCT = "DELETE FROM Hoa_don_chi_tiet WHERE MaHD=?";
     String SELECT_ALL_SQL = "SELECT * FROM Hoa_don order by MaKH,Trangthai";
@@ -45,6 +47,12 @@ public class HoaDonDAO extends XeDAO<HoaDon, String> {
                 entity.getTenNV(),
                 entity.isTrangThai(),
                 entity.getNgayTao(),
+                entity.getTongTien(),
+                entity.getMaHD());
+    }
+
+    public void updateTT(HoaDon entity) {
+        XJdbc.executeUpdate(UPDATE_SQL_TT,
                 entity.getTongTien(),
                 entity.getMaHD());
     }

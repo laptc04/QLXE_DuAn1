@@ -20,6 +20,7 @@ import xe.utils.XJdbc;
 public class XeDAOO extends XeDAO<Xe, String> {
 
     String INSERT_SQL = "INSERT INTO Xe_may(TenXe,TenHX,MaDX,MaLX,MaMX,Dungtich,Gia,Hinh_anh,Soluong) VALUES(?,?,?,?,?,?,?,?,?)";
+    String UPDATE_SQL_SL = "UPDATE Hoa_don SET Soluong=? WHERE MaXe=?";
     String UPDATE_SQL = "UPDATE Xe_may SET TenXe=?,TenHX=?,MaDX=?, MaLX=?,MaMX=?,Dungtich=?,Gia=?,Hinh_anh=?,soluong=? WHERE MaXe=?";
     String DELETE_SQL = "DELETE FROM Xe_may WHERE MaXe=?";
     String DELETE_SQL_SKSMXe = "DELETE FROM Sokhung_Somay WHERE MaXe=?";
@@ -56,6 +57,11 @@ public class XeDAOO extends XeDAO<Xe, String> {
                 entity.getDungtich(),
                 entity.getGia(),
                 entity.getHinh_anh(),
+                entity.getSoluong(),
+                entity.getMaXe());
+    }
+    public void updateSL(Xe entity) {
+        XJdbc.executeUpdate(UPDATE_SQL,
                 entity.getSoluong(),
                 entity.getMaXe());
     }
