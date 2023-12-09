@@ -4,16 +4,18 @@
  */
 package xe.ui;
 
-import com.orsoncharts.label.CategoryItemLabelGenerator;
 import com.orsoncharts.label.StandardCategoryItemLabelGenerator;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.labels.CategoryItemLabelGenerator;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.ui.ApplicationFrame;
 import org.jfree.ui.RefineryUtilities;
+
+
 /**
  *
  * @author ADMIN
@@ -38,7 +40,7 @@ public class BarChartExample extends ApplicationFrame{
         );
         BarRenderer renderer = (BarRenderer) chart.getCategoryPlot().getRenderer();
         //Hiển thị giá trị bên trên cột
-        CategoryItemLabelGenerator generator = new StandardCategoryItemLabelGenerator();
+        CategoryItemLabelGenerator generator = new org.jfree.chart.labels.StandardCategoryItemLabelGenerator();
         renderer.setBaseItemLabelGenerator((org.jfree.chart.labels.CategoryItemLabelGenerator) generator);
         renderer.setBaseItemLabelsVisible(true);
         

@@ -97,16 +97,37 @@ public class SoKhungSoMayDAO extends XeDAO<SoKhungSoMay, String> {
     
     public List<SoKhungSoMay> selectBysm(String TenSK) {
         String SQL = "SELECT Somay FROM Sokhung_Somay WHERE Sokhung= ?";
-        return this.selectBysk(SQL, TenSK);
+        return this.selectBysm(SQL, TenSK);
     }
 
-    protected List<SoKhungSoMay> selectBysk(String sql, Object... args) {
+    protected List<SoKhungSoMay> selectBysm(String sql, Object... args) {
         List<SoKhungSoMay> list = new ArrayList<>();
         try {
             ResultSet rs = XJdbc.executeQuery(sql, args);
             while (rs.next()) {
                 SoKhungSoMay entity = new SoKhungSoMay();
                 entity.setSomay(rs.getString("Somay"));
+                list.add(entity);
+            }
+            rs.getStatement().getConnection().close();
+            return list;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    protected List<SoKhungSoMay> selectBysk(String maxe) {
+        String SQL = "SELECT MaXe,Sokhung FROM Sokhung_Somay where Maxe=?";
+        return this.selectBysk(SQL,maxe);
+    }
+
+    public List<SoKhungSoMay> selectBysk(String sql, Object... args) {
+        List<SoKhungSoMay> list = new ArrayList<>();
+        try {
+            ResultSet rs = XJdbc.executeQuery(sql, args);
+            while (rs.next()) {
+                SoKhungSoMay entity = new SoKhungSoMay();
+                entity.setMaXe(rs.getInt("Maxe"));
+                entity.setSokhung(rs.getString("Sokhung"));
                 list.add(entity);
             }
             rs.getStatement().getConnection().close();

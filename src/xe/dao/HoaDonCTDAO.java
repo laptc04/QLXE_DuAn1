@@ -5,10 +5,10 @@
 package xe.dao;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import xe.entity.HoaDonCT;
-import xe.entity.KhachHang;
 import xe.utils.XJdbc;
 
 /**
@@ -96,6 +96,26 @@ public class HoaDonCTDAO extends XeDAO<HoaDonCT, String> {
         }
     }
 
+    public List<HoaDonCT> selectBysk() {
+        String SQL = "SELECT Sokhung FROM Hoa_don_chi_tiet";
+        return this.selectBysk(SQL);
+    }
+
+    protected List<HoaDonCT> selectBysk(String sql, Object... args) {
+        List<HoaDonCT> list = new ArrayList<>();
+        try {
+            ResultSet rs = XJdbc.executeQuery(sql, args);
+            while (rs.next()) {
+                HoaDonCT entity = new HoaDonCT();
+                entity.setSokhung(rs.getString("Sokhung"));
+                list.add(entity);
+            }
+            rs.getStatement().getConnection().close();
+            return list;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
     
 
 }

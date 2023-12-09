@@ -20,6 +20,7 @@ public class HoaDonDAO extends XeDAO<HoaDon, String> {
     String INSERT_SQL = "INSERT INTO Hoa_don(MaKH, TenKH, MaNV,TenNV,Trangthai,Ngaytao,Tongtien) VALUES(?,?,?,?,?,?,?)";
     String UPDATE_SQL = "UPDATE Hoa_don SET MaKH=?, TenKH=?, MaNV = ?, TenNV=? ,Trangthai=?, Ngaytao = ?,Tongtien=? WHERE MaHD=?";
     String DELETE_SQL = "DELETE FROM Hoa_don WHERE MaHD=?";
+    String DELETE_SQL_HDCT = "DELETE FROM Hoa_don_chi_tiet WHERE MaHD=?";
     String SELECT_ALL_SQL = "SELECT * FROM Hoa_don order by MaKH,Trangthai";
     String SELECT_BY_ID_SQL = "SELECT * FROM Hoa_don WHERE MaHD=?";
 
@@ -50,6 +51,7 @@ public class HoaDonDAO extends XeDAO<HoaDon, String> {
 
     @Override
     public void delete(String id) {
+        XJdbc.executeUpdate(DELETE_SQL_HDCT, id);
         XJdbc.executeUpdate(DELETE_SQL, id);
     }
 
