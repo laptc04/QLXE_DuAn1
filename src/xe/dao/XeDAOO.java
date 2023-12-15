@@ -20,7 +20,7 @@ import xe.utils.XJdbc;
 public class XeDAOO extends XeDAO<Xe, String> {
 
     String INSERT_SQL = "INSERT INTO Xe_may(TenXe,TenHX,MaDX,MaLX,MaMX,Dungtich,Gia,Hinh_anh,Soluong) VALUES(?,?,?,?,?,?,?,?,?)";
-    String UPDATE_SQL_SL = "UPDATE Hoa_don SET Soluong=? WHERE MaXe=?";
+    String UPDATE_SQL_SL = "UPDATE Xe_may SET Soluong=? WHERE MaXe=?";
     String UPDATE_SQL = "UPDATE Xe_may SET TenXe=?,TenHX=?,MaDX=?, MaLX=?,MaMX=?,Dungtich=?,Gia=?,Hinh_anh=?,soluong=? WHERE MaXe=?";
     String DELETE_SQL = "DELETE FROM Xe_may WHERE MaXe=?";
     String DELETE_SQL_SKSMXe = "DELETE FROM Sokhung_Somay WHERE MaXe=?";
@@ -61,7 +61,7 @@ public class XeDAOO extends XeDAO<Xe, String> {
                 entity.getMaXe());
     }
     public void updateSL(Xe entity) {
-        XJdbc.executeUpdate(UPDATE_SQL,
+        XJdbc.executeUpdate(UPDATE_SQL_SL,
                 entity.getSoluong(),
                 entity.getMaXe());
     }
@@ -71,6 +71,9 @@ public class XeDAOO extends XeDAO<Xe, String> {
         //xóa xe sẽ xóa luôn sksm
         //xóa theo mã xe
         XJdbc.executeUpdate(DELETE_SQL_SKSMXe, id);//xóa khóa ngoại 
+        XJdbc.executeUpdate(DELETE_SQL, id);//xong xóa khóa chính
+    }
+    public void deleteXE(String id) {
         XJdbc.executeUpdate(DELETE_SQL, id);//xong xóa khóa chính
     }
 

@@ -85,17 +85,6 @@ public class DongXeDAO extends XeDAO<DongXe, String> {
         return list.get(0);
     }
 
-//    public List<DongXe> selectByDX(String madx) {
-//        String SQL = "SELECT TenDX FROM Dong_xe WHERE TenHX = ?";
-//        return this.selectBySQL(SQL, madx);
-//    }
-//    public DongXe selectByMD(String id) {
-//        List<DongXe> list = this.selectByMaDX(SELECT_MD, id);
-//        if (list.isEmpty()) {
-//            return null;
-//        }
-//        return list.get(0);
-//    }
     @Override
     public List<DongXe> selectAll() {
         return this.selectBySQL(SELECT_ALL_SQL);

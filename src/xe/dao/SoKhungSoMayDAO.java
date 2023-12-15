@@ -20,6 +20,7 @@ public class SoKhungSoMayDAO extends XeDAO<SoKhungSoMay, String> {
     String INSERT_SQL = "INSERT INTO Sokhung_Somay(MaXe,TenHX,MaDX,Sokhung,Somay) VALUES(?,?,?,?,?)";
     String UPDATE_SQL = "UPDATE Sokhung_Somay SET MaXe=?,TenHX=?,MaDX=?,Sokhung=?,Somay=? WHERE MaSKSM=?";
     String DELETE_SQL = "DELETE FROM Sokhung_Somay WHERE MaSKSM=?";
+    String DELETE_SQL_SKSM = "DELETE FROM Sokhung_Somay WHERE Somay=?";
     String SELECT_ALL_SQL = "SELECT * FROM Sokhung_Somay";
     String SELECT_BY_ID_SQL = "SELECT * FROM Sokhung_Somay WHERE MaSKSM=?";
     String SELECT_BY_ID_SKSM = "SELECT * FROM Sokhung_Somay WHERE MaXe=?";
@@ -49,6 +50,10 @@ public class SoKhungSoMayDAO extends XeDAO<SoKhungSoMay, String> {
     @Override
     public void delete(String id) {
         XJdbc.executeUpdate(DELETE_SQL, id);
+    }
+
+    public void deleteSKSM(String id) {
+        XJdbc.executeUpdate(DELETE_SQL_SKSM, id);
     }
 
     @Override
@@ -94,7 +99,7 @@ public class SoKhungSoMayDAO extends XeDAO<SoKhungSoMay, String> {
             throw new RuntimeException(e);
         }
     }
-    
+
     public List<SoKhungSoMay> selectBysm(String TenSK) {
         String SQL = "SELECT Somay FROM Sokhung_Somay WHERE Sokhung= ?";
         return this.selectBysm(SQL, TenSK);
@@ -115,9 +120,10 @@ public class SoKhungSoMayDAO extends XeDAO<SoKhungSoMay, String> {
             throw new RuntimeException(e);
         }
     }
+
     protected List<SoKhungSoMay> selectBysk(String maxe) {
         String SQL = "SELECT MaXe,Sokhung FROM Sokhung_Somay where Maxe=?";
-        return this.selectBysk(SQL,maxe);
+        return this.selectBysk(SQL, maxe);
     }
 
     public List<SoKhungSoMay> selectBysk(String sql, Object... args) {

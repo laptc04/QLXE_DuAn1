@@ -21,6 +21,7 @@ public class HoaDonCTDAO extends XeDAO<HoaDonCT, String> {
     String UPDATE_SQL = "UPDATE Hoa_don_chi_tiet SET TenKH=?, Sodienthoai = ?, Diachi=? , Ngaytao = ? WHERE MaKH=?";
     String DELETE_SQL = "DELETE FROM Hoa_don_chi_tiet WHERE MaHDCT=?";
     String SELECT_ALL_SQL = "SELECT * FROM Hoa_don_chi_tiet";
+    String SELECT_BY_ID_MAHD = "SELECT * FROM Hoa_don_chi_tiet where MaHD=?";
     String SELECT_BY_ID_SQL = "SELECT * FROM Hoa_don_chi_tiet WHERE MaHDCT=?";
 
     @Override
@@ -60,10 +61,22 @@ public class HoaDonCTDAO extends XeDAO<HoaDonCT, String> {
         }
         return list.get(0);
     }
+    public HoaDonCT selectByIdHD(String id) {
+        List<HoaDonCT> list = this.selectBySQL(SELECT_BY_ID_MAHD, id);
+        if (list.isEmpty()) {
+            return null;
+        }
+        return list.get(0);
+    }
 
     @Override
     public List<HoaDonCT> selectAll() {
         return this.selectBySQL(SELECT_ALL_SQL);
+    }
+    
+    public List<HoaDonCT> selectByHD(String mahd) {
+        String SQL = "SELECT * FROM Hoa_don_chi_tiet where MaHD";
+        return this.selectBySQL(SQL,mahd);
     }
 
     @Override
