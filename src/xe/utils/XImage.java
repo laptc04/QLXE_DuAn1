@@ -39,7 +39,7 @@ public class XImage {
             throw new RuntimeException(e);
         }
     }
-    
+
     public static void saveAnhXe(File src) {
         File dir = new File("Anh_Xe", src.getName());
         if (!dir.exists()) {
@@ -58,14 +58,20 @@ public class XImage {
         File path = new File("img", filename);
         return new ImageIcon(new ImageIcon(path.getAbsolutePath()).getImage().getScaledInstance(130, 220, Image.SCALE_DEFAULT));
     }
-    
+
+    public static ImageIcon readAnhNV(String filename) {
+        File path = new File("img", filename);
+        return new ImageIcon(new ImageIcon(path.getAbsolutePath()).getImage().getScaledInstance(139, 157, Image.SCALE_DEFAULT));
+    }
+
     public static ImageIcon readGiaoDien(String filename) {
         File path = new File("img", filename);
         return new ImageIcon(new ImageIcon(path.getAbsolutePath()).getImage().getScaledInstance(82, 83, Image.SCALE_DEFAULT));
     }
-    
+
     public static ImageIcon readAnhXe(String filename) {
         File path = new File("Anh_Xe", filename);
         return new ImageIcon(new ImageIcon(path.getAbsolutePath()).getImage().getScaledInstance(330, 340, Image.SCALE_DEFAULT));
     }
+
 }

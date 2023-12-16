@@ -5,7 +5,6 @@
  */
 package xe.dao;
 
-
 import java.util.ArrayList;
 import java.util.List;
 import java.sql.*;
@@ -20,6 +19,8 @@ public class NhanVienDAO extends XeDAO<NhanVien, String> {
 
     String INSERT_SQL = "INSERT INTO Nhan_Vien(MaNV, TenNV, Matkhau,Sodienthoai,Diachi,Hinh_anh,Vaitro) VALUES(?,?,?,?,?,?,?)";
     String UPDATE_SQL = "UPDATE Nhan_Vien SET TenNV=?, Sodienthoai = ?,Diachi = ?, Hinh_anh = ?,Vaitro=? WHERE MaNV=?";
+    String UPDATE_SQL_CT = "UPDATE Nhan_Vien SET TenNV=?, Sodienthoai = ?,Diachi = ?, Hinh_anh = ? WHERE MaNV=?";
+    String UPDATE_SQL_MK = "UPDATE Nhan_Vien SET Matkhau=? WHERE MaNV=?";
     String DELETE_SQL = "DELETE FROM Nhan_Vien WHERE MaNV=?";
     String SELECT_ALL_SQL = "SELECT * FROM Nhan_Vien order by Vaitro";
     String SELECT_BY_ID_SQL = "SELECT * FROM Nhan_Vien WHERE MaNV=?";
@@ -44,6 +45,21 @@ public class NhanVienDAO extends XeDAO<NhanVien, String> {
                 entity.getDiaChi(),
                 entity.getHinhAnh(),
                 entity.isVaiTro(),
+                entity.getMaNV());
+    }
+
+    public void updateCT(NhanVien entity) {
+        XJdbc.executeUpdate(UPDATE_SQL_CT,
+                entity.getTenNV(),
+                entity.getSDT(),
+                entity.getDiaChi(),
+                entity.getHinhAnh(),
+                entity.getMaNV());
+    }
+    
+    public void updateMK(NhanVien entity) {
+        XJdbc.executeUpdate(UPDATE_SQL_MK,
+                entity.getMatKhau(),
                 entity.getMaNV());
     }
 
